@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/pages/LandingPage';
 import { CourseDetail } from './components/CourseDetail';
 import { PractitionerAccreditation } from './components/pages/PractitionerAccreditation';
+import { PractitionerAccreditationExpanded } from './components/pages/PractitionerAccreditationExpanded';
 import { ProgramAccreditation } from './components/pages/ProgramAccreditation';
 import { RenewalCPD } from './components/pages/RenewalCPD';
 import { AccreditedNetwork } from './components/pages/AccreditedNetwork';
@@ -12,17 +13,63 @@ import { FindPractitioner } from './components/pages/FindPractitioner';
 import { PractitionerProfile } from './components/pages/PractitionerProfile';
 import { LearningEvents } from './components/pages/LearningEvents';
 import { IaipCourses } from './components/pages/IaipCourses';
+import { PublicationsBooks } from './components/pages/PublicationsBooks';
 import { DesignSystemShowcase } from './components/DesignSystemShowcase';
 import { AiSearch } from './components/pages/AiSearch';
 import { VisualRevamp } from './components/pages/VisualRevamp';
 import { RefinedComponents } from './components/pages/RefinedComponents';
 import { Footer } from './components/Footer';
-import { Layers, Layout, BookOpen, Award, Building2, RefreshCw, Globe, GraduationCap, Search, UserCircle, Sparkles, Palette, Calendar, Library, PenTool } from 'lucide-react';
+import { 
+  Layers, Layout, BookOpen, Award, Building2, RefreshCw, Globe, 
+  GraduationCap, Search, UserCircle, Sparkles, Palette, Calendar, 
+  Library, PenTool, ListChecks, Menu, X, Check, LayoutGrid, Book
+} from 'lucide-react';
 
-type Page = 'landing' | 'course-detail' | 'practitioner-accreditation' | 'program-accreditation' | 'renewal-cpd' | 'accredited-network' | 'accredited-programs' | 'find-practitioner' | 'practitioner-profile' | 'learning-events' | 'iaip-courses' | 'design-system' | 'ai-search' | 'visual-revamp' | 'refined-components';
+type Page = 'landing' | 'course-detail' | 'practitioner-accreditation' | 'practitioner-accreditation-expanded' | 'program-accreditation' | 'renewal-cpd' | 'accredited-network' | 'accredited-programs' | 'find-practitioner' | 'practitioner-profile' | 'learning-events' | 'iaip-courses' | 'publications-books' | 'design-system' | 'ai-search' | 'visual-revamp' | 'refined-components';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('landing');
+  const [currentPage, setCurrentPage] = useState<Page>('publications-books');
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const pageGroups = [
+    {
+      title: "Core & Design",
+      items: [
+        { id: 'landing', label: 'Landing Page', icon: Layout },
+        { id: 'design-system', label: 'Design System', icon: Layers },
+        { id: 'visual-revamp', label: 'Visual Revamp', icon: Palette },
+        { id: 'refined-components', label: 'Refined UI', icon: PenTool },
+      ]
+    },
+    {
+      title: "Accreditation",
+      items: [
+        { id: 'practitioner-accreditation', label: 'Practitioner Acc.', icon: Award },
+        { id: 'practitioner-accreditation-expanded', label: 'Practitioner (Full)', icon: ListChecks },
+        { id: 'program-accreditation', label: 'Program Acc.', icon: Building2 },
+        { id: 'renewal-cpd', label: 'Renewal & CPD', icon: RefreshCw },
+      ]
+    },
+    {
+      title: "Network",
+      items: [
+        { id: 'accredited-network', label: 'Accredited Network', icon: Globe },
+        { id: 'find-practitioner', label: 'Find Practitioner', icon: Search },
+        { id: 'practitioner-profile', label: 'Profile View', icon: UserCircle },
+      ]
+    },
+    {
+      title: "Learning",
+      items: [
+        { id: 'course-detail', label: 'Course Detail', icon: BookOpen },
+        { id: 'accredited-programs', label: 'Accredited Programs', icon: GraduationCap },
+        { id: 'learning-events', label: 'Events', icon: Calendar },
+        { id: 'iaip-courses', label: 'IAIP Courses', icon: Library },
+        { id: 'publications-books', label: 'Publications: Books', icon: Book },
+        { id: 'ai-search', label: 'AI Search', icon: Sparkles },
+      ]
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-primary-light selection:text-primary-dark">
@@ -32,6 +79,7 @@ function App() {
         {currentPage === 'landing' && <LandingPage />}
         {currentPage === 'course-detail' && <CourseDetail />}
         {currentPage === 'practitioner-accreditation' && <PractitionerAccreditation />}
+        {currentPage === 'practitioner-accreditation-expanded' && <PractitionerAccreditationExpanded />}
         {currentPage === 'program-accreditation' && <ProgramAccreditation />}
         {currentPage === 'renewal-cpd' && <RenewalCPD />}
         {currentPage === 'accredited-network' && <AccreditedNetwork />}
@@ -40,6 +88,7 @@ function App() {
         {currentPage === 'practitioner-profile' && <PractitionerProfile />}
         {currentPage === 'learning-events' && <LearningEvents />}
         {currentPage === 'iaip-courses' && <IaipCourses />}
+        {currentPage === 'publications-books' && <PublicationsBooks />}
         {currentPage === 'ai-search' && <AiSearch />}
         {currentPage === 'visual-revamp' && <VisualRevamp />}
         {currentPage === 'refined-components' && <RefinedComponents />}
@@ -48,127 +97,67 @@ function App() {
 
       <Footer />
 
-      {/* Floating Page Switcher */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2 p-2 bg-white/90 backdrop-blur-md border border-slate-200 shadow-2xl rounded-2xl max-h-[80vh] overflow-y-auto">
+      {/* Floating Navigation Command Center */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        
+        {/* Menu Panel */}
+        {isNavOpen && (
+          <div className="mb-4 bg-white/90 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-[2rem] p-6 w-[320px] sm:w-[380px] max-h-[80vh] overflow-y-auto animate-in slide-in-from-bottom-10 fade-in duration-200 origin-bottom-right">
+            <div className="flex items-center justify-between mb-6 px-2">
+              <h3 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                <LayoutGrid size={18} className="text-primary-dark" /> 
+                Site Navigation
+              </h3>
+              <span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md">
+                {pageGroups.reduce((acc, group) => acc + group.items.length, 0)} Pages
+              </span>
+            </div>
+
+            <div className="space-y-6">
+              {pageGroups.map((group, groupIndex) => (
+                <div key={groupIndex}>
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-2 border-b border-slate-100 pb-2">
+                    {group.title}
+                  </h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {group.items.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          setCurrentPage(item.id as Page);
+                          setIsNavOpen(false);
+                        }}
+                        className={`
+                          flex flex-col items-center justify-center p-3 rounded-xl text-center transition-all duration-200 border group
+                          ${currentPage === item.id 
+                            ? 'bg-slate-900 text-white border-slate-900 shadow-lg' 
+                            : 'bg-white text-slate-600 border-slate-100 hover:border-primary-dark/20 hover:bg-slate-50 hover:text-primary-dark hover:shadow-md'
+                          }
+                        `}
+                      >
+                        <item.icon size={20} className={`mb-2 transition-colors ${currentPage === item.id ? 'text-primary-light' : 'text-slate-400 group-hover:text-primary-dark'}`} />
+                        <span className="text-xs font-bold leading-tight">{item.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Toggle Button */}
         <button
-          onClick={() => setCurrentPage('refined-components')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'refined-components' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Refined Components (New!)"
+          onClick={() => setIsNavOpen(!isNavOpen)}
+          className={`
+            h-16 w-16 rounded-full shadow-2xl shadow-primary-dark/20 flex items-center justify-center transition-all duration-300 z-50 border-4 border-white
+            ${isNavOpen 
+              ? 'bg-slate-900 text-white rotate-90 hover:bg-slate-800' 
+              : 'bg-primary-dark text-white hover:scale-110 hover:bg-primary-light'
+            }
+          `}
         >
-          <PenTool size={20} />
-          {currentPage === 'refined-components' && <span className="text-sm font-bold pr-2">Refined UI</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('visual-revamp')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'visual-revamp' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Visual Revamp"
-        >
-          <Palette size={20} />
-          {currentPage === 'visual-revamp' && <span className="text-sm font-bold pr-2">Visual Revamp</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('iaip-courses')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'iaip-courses' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="IAIP Courses"
-        >
-          <Library size={20} />
-          {currentPage === 'iaip-courses' && <span className="text-sm font-bold pr-2">IAIP Courses</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('learning-events')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'learning-events' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Learning & Events"
-        >
-          <Calendar size={20} />
-          {currentPage === 'learning-events' && <span className="text-sm font-bold pr-2">Learning & Events</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('landing')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'landing' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Landing Page Wireframe"
-        >
-          <Layout size={20} />
-          {currentPage === 'landing' && <span className="text-sm font-bold pr-2">Landing Page</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('ai-search')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'ai-search' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="AI Knowledge Search"
-        >
-          <Sparkles size={20} />
-          {currentPage === 'ai-search' && <span className="text-sm font-bold pr-2">AI Search</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('course-detail')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'course-detail' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Course Detail Page"
-        >
-          <BookOpen size={20} />
-          {currentPage === 'course-detail' && <span className="text-sm font-bold pr-2">Course Detail</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('practitioner-accreditation')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'practitioner-accreditation' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Practitioner Accreditation"
-        >
-          <Award size={20} />
-          {currentPage === 'practitioner-accreditation' && <span className="text-sm font-bold pr-2">Practitioner Acc.</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('program-accreditation')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'program-accreditation' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Program Accreditation"
-        >
-          <Building2 size={20} />
-          {currentPage === 'program-accreditation' && <span className="text-sm font-bold pr-2">Program Acc.</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('renewal-cpd')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'renewal-cpd' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Renewal & CPD"
-        >
-          <RefreshCw size={20} />
-          {currentPage === 'renewal-cpd' && <span className="text-sm font-bold pr-2">Renewal & CPD</span>}
-        </button>
-         <button
-          onClick={() => setCurrentPage('accredited-network')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'accredited-network' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Accredited Network"
-        >
-          <Globe size={20} />
-          {currentPage === 'accredited-network' && <span className="text-sm font-bold pr-2">Network</span>}
-        </button>
-         <button
-          onClick={() => setCurrentPage('find-practitioner')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'find-practitioner' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Find Practitioner"
-        >
-          <Search size={20} />
-          {currentPage === 'find-practitioner' && <span className="text-sm font-bold pr-2">Find Practitioner</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('practitioner-profile')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'practitioner-profile' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Practitioner Profile"
-        >
-          <UserCircle size={20} />
-          {currentPage === 'practitioner-profile' && <span className="text-sm font-bold pr-2">Profile</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('accredited-programs')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'accredited-programs' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Accredited Programs"
-        >
-          <GraduationCap size={20} />
-          {currentPage === 'accredited-programs' && <span className="text-sm font-bold pr-2">Programs</span>}
-        </button>
-        <button
-          onClick={() => setCurrentPage('design-system')}
-          className={`p-3 rounded-xl flex items-center gap-3 transition-all ${currentPage === 'design-system' ? 'bg-primary-dark text-white shadow-lg' : 'hover:bg-slate-100 text-slate-500'}`}
-          title="Design System"
-        >
-          <Layers size={20} />
-          {currentPage === 'design-system' && <span className="text-sm font-bold pr-2">Design System</span>}
+          {isNavOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
     </div>

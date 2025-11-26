@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
-import { Award, MapPin, Mail, Phone, Facebook, Twitter, Instagram, Linkedin, Globe, BookOpen, FileText, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Award, MapPin, Mail, Phone, Facebook, Twitter, Instagram, Linkedin, Globe, BookOpen, FileText, ArrowRight, CheckCircle2, Shield, Heart } from 'lucide-react';
 
 export const PractitionerProfile: React.FC = () => {
   return (
@@ -216,28 +216,39 @@ export const PractitionerProfile: React.FC = () => {
 
       </div>
 
-      {/* Shared Bottom CTA */}
-      <section className="bg-slate-100 py-16">
+      {/* Dignity of Community CTA - REDESIGNED */}
+      <section className="bg-white py-24 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="bg-[#51537a] rounded-[2.5rem] p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-10 text-center lg:text-left relative overflow-hidden shadow-2xl">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+           <div className="relative bg-slate-900 rounded-[3rem] p-12 lg:p-20 overflow-hidden shadow-2xl group">
+              {/* Background Atmosphere */}
+              <div className="absolute inset-0 bg-pattern-grid opacity-10 pointer-events-none"></div>
+              <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
               
-              <div className="max-w-2xl relative z-10">
-                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                    IAIP honors the dignity of the community it serves
-                 </h2>
-                 <p className="text-indigo-100 text-lg leading-relaxed">
-                    Seeking support is an act of trust. IAIP-certified practitioners are required to uphold ethical conduct and Islamic values that protect your dignity and wellbeing.
-                 </p>
-              </div>
+              <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16">
+                 <div className="max-w-2xl text-center lg:text-left">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-teal-300 text-xs font-bold uppercase tracking-wider mb-8 backdrop-blur-sm shadow-lg">
+                        <Shield size={12} /> Ethical Standards
+                    </div>
+                    
+                    <h2 className="text-4xl md:text-5xl font-serif font-medium text-white mb-6 leading-tight">
+                       IAIP honors the <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-cyan-400 font-bold">dignity</span> of the community it serves.
+                    </h2>
+                    
+                    <p className="text-slate-300 text-lg leading-relaxed border-l-2 border-teal-500/30 pl-6">
+                       Seeking support is an act of trust. IAIP-certified practitioners are bound by a rigorous code of ethics that integrates Islamic values with professional conduct to protect your wellbeing.
+                    </p>
+                 </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 relative z-10">
-                 <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 h-auto text-base backdrop-blur-sm">
-                    Read the IAIP Code of Ethics
-                 </Button>
-                 <Button className="bg-white text-[#51537a] hover:bg-indigo-50 px-8 py-4 h-auto text-base">
-                    Contact IAIP
-                 </Button>
+                 <div className="flex flex-col gap-4 w-full sm:w-auto flex-shrink-0">
+                    <Button className="bg-white text-slate-900 hover:bg-teal-50 px-10 py-5 h-auto text-base font-bold rounded-2xl shadow-[0_0_30px_-10px_rgba(255,255,255,0.3)] flex items-center justify-center gap-3 transition-all hover:scale-105">
+                       <Heart className="w-5 h-5 text-rose-500" fill="currentColor" /> 
+                       Read Code of Ethics
+                    </Button>
+                    <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-10 py-5 h-auto text-base rounded-2xl backdrop-blur-sm flex items-center justify-center gap-3">
+                       Contact IAIP Support
+                    </Button>
+                 </div>
               </div>
            </div>
         </div>
