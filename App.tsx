@@ -14,6 +14,7 @@ import { PractitionerProfile } from './components/pages/PractitionerProfile';
 import { LearningEvents } from './components/pages/LearningEvents';
 import { IaipCourses } from './components/pages/IaipCourses';
 import { PublicationsBooks } from './components/pages/PublicationsBooks';
+import { PublicationsArticles } from './components/pages/PublicationsArticles';
 import { DesignSystemShowcase } from './components/DesignSystemShowcase';
 import { AiSearch } from './components/pages/AiSearch';
 import { VisualRevamp } from './components/pages/VisualRevamp';
@@ -22,13 +23,13 @@ import { Footer } from './components/Footer';
 import { 
   Layers, Layout, BookOpen, Award, Building2, RefreshCw, Globe, 
   GraduationCap, Search, UserCircle, Sparkles, Palette, Calendar, 
-  Library, PenTool, ListChecks, Menu, X, Check, LayoutGrid, Book
+  Library, PenTool, ListChecks, Menu, X, Check, LayoutGrid, Book, FileText
 } from 'lucide-react';
 
-type Page = 'landing' | 'course-detail' | 'practitioner-accreditation' | 'practitioner-accreditation-expanded' | 'program-accreditation' | 'renewal-cpd' | 'accredited-network' | 'accredited-programs' | 'find-practitioner' | 'practitioner-profile' | 'learning-events' | 'iaip-courses' | 'publications-books' | 'design-system' | 'ai-search' | 'visual-revamp' | 'refined-components';
+type Page = 'landing' | 'course-detail' | 'practitioner-accreditation' | 'practitioner-accreditation-expanded' | 'program-accreditation' | 'renewal-cpd' | 'accredited-network' | 'accredited-programs' | 'find-practitioner' | 'practitioner-profile' | 'learning-events' | 'iaip-courses' | 'publications-books' | 'publications-articles' | 'design-system' | 'ai-search' | 'visual-revamp' | 'refined-components';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('publications-books');
+  const [currentPage, setCurrentPage] = useState<Page>('publications-articles');
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const pageGroups = [
@@ -65,7 +66,8 @@ function App() {
         { id: 'accredited-programs', label: 'Accredited Programs', icon: GraduationCap },
         { id: 'learning-events', label: 'Events', icon: Calendar },
         { id: 'iaip-courses', label: 'IAIP Courses', icon: Library },
-        { id: 'publications-books', label: 'Publications: Books', icon: Book },
+        { id: 'publications-books', label: 'Pubs: Books', icon: Book },
+        { id: 'publications-articles', label: 'Pubs: Articles', icon: FileText },
         { id: 'ai-search', label: 'AI Search', icon: Sparkles },
       ]
     }
@@ -89,6 +91,7 @@ function App() {
         {currentPage === 'learning-events' && <LearningEvents />}
         {currentPage === 'iaip-courses' && <IaipCourses />}
         {currentPage === 'publications-books' && <PublicationsBooks />}
+        {currentPage === 'publications-articles' && <PublicationsArticles />}
         {currentPage === 'ai-search' && <AiSearch />}
         {currentPage === 'visual-revamp' && <VisualRevamp />}
         {currentPage === 'refined-components' && <RefinedComponents />}
