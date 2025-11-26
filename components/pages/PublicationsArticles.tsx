@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { Avatar } from '../ui/Avatar';
-import { Search, ChevronDown, ArrowRight, Check, Calendar, User, Heart, Mail, Filter } from 'lucide-react';
+import { Search, ChevronDown, ArrowRight, Check, Calendar, User, Heart, Mail, Filter, Clock, Bookmark, Share2, Sparkles, BookOpen, Shield } from 'lucide-react';
 
 export const PublicationsArticles: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -25,40 +25,52 @@ export const PublicationsArticles: React.FC = () => {
       id: 1,
       title: "The evolving Islam and psychology movement",
       author: "Dr. Abdallah Rothman",
+      role: "Executive Director",
       date: "Nov 16, 2025",
-      desc: "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm.",
+      readTime: "8 min read",
+      category: "Theory & History",
+      desc: "An in-depth analysis of how the field has grown over the last decade, moving from theoretical frameworks to clinical applications in diverse global contexts.",
       image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80"
     },
     {
       id: 2,
       title: "Cognitive Restructuring in Islamic Psychotherapy",
       author: "Dr. Rania Awaad",
+      role: "Senior Fellow",
       date: "Oct 24, 2025",
-      desc: "Exploring how traditional Islamic concepts of the intellect ('Aql) align with modern cognitive behavioral interventions.",
+      readTime: "12 min read",
+      category: "Clinical Practice",
+      desc: "Exploring how traditional Islamic concepts of the intellect ('Aql) and reflection (Tafakkur) align with modern cognitive behavioral interventions for anxiety.",
       image: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80"
     },
     {
       id: 3,
       title: "Trauma and the Soul: A Clinical Perspective",
       author: "Ustadha Zaynab",
+      role: "Psychotherapist",
       date: "Sep 10, 2025",
-      desc: "A clinical look at how trauma impacts the Ruh and Nafs, and therapeutic approaches for spiritual reintegration.",
+      readTime: "15 min read",
+      category: "Trauma Informed",
+      desc: "A clinical look at how trauma impacts the Ruh and Nafs, and therapeutic approaches for spiritual reintegration and somatic healing.",
       image: "https://images.unsplash.com/photo-1518531933037-9a3e35641178?auto=format&fit=crop&q=80"
     },
     {
       id: 4,
       title: "Ethics of care in Muslim mental health",
       author: "Prof. Malik Badri",
+      role: "Founding Father",
       date: "Aug 05, 2025",
-      desc: "Defining the ethical boundaries and responsibilities of Muslim practitioners in secular clinical settings.",
+      readTime: "10 min read",
+      category: "Ethics",
+      desc: "Defining the ethical boundaries and responsibilities of Muslim practitioners when working in secular clinical settings.",
       image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80"
     }
   ];
 
   const latestPicks = [
-    { title: "The evolving Islam and psychology movement", date: "Nov 16, 2025" },
-    { title: "Understanding the Fitrah in modern times", date: "Nov 12, 2025" },
-    { title: "Clinical applications of Muraqabah", date: "Nov 08, 2025" }
+    { title: "The evolving Islam and psychology movement", date: "Nov 16, 2025", views: "2.4k" },
+    { title: "Understanding the Fitrah in modern times", date: "Nov 12, 2025", views: "1.8k" },
+    { title: "Clinical applications of Muraqabah", date: "Nov 08, 2025", views: "3.1k" }
   ];
 
   const filters = {
@@ -67,7 +79,7 @@ export const PublicationsArticles: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen pb-20 font-sans text-slate-900">
+    <div className="bg-slate-50 min-h-screen pb-20 font-sans text-slate-900">
       
       {/* Breadcrumb */}
       <div className="bg-white border-b border-slate-100">
@@ -81,25 +93,30 @@ export const PublicationsArticles: React.FC = () => {
       </div>
 
       {/* Header Area */}
-      <div className="bg-white pb-12 pt-10 border-b border-slate-100 relative overflow-hidden">
+      <div className="bg-white pb-16 pt-12 border-b border-slate-100 relative overflow-hidden">
          <div className="absolute inset-0 bg-pattern-grid opacity-5 pointer-events-none"></div>
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-8">
-                <div>
-                    <h1 className="text-4xl font-extrabold text-slate-900 mb-2 tracking-tight">Articles Authored by IAIP</h1>
-                    <p className="text-slate-500 font-medium">Cutting-edge research and clinical insights from our fellows.</p>
+            <div className="flex flex-col lg:flex-row justify-between items-end gap-8 mb-10">
+                <div className="max-w-3xl">
+                    <Badge variant="accent" className="mb-4">Knowledge Hub</Badge>
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                        Articles Authored by IAIP
+                    </h1>
+                    <p className="text-xl text-slate-500 leading-relaxed">
+                        Cutting-edge research, clinical insights, and theoretical frameworks from our global fellows.
+                    </p>
                 </div>
             </div>
 
             {/* Floating Command Center Search */}
-            <div className="bg-slate-50 p-2 rounded-2xl border border-slate-200 flex flex-col lg:flex-row gap-2 relative z-20" ref={dropdownRef}>
+            <div className="bg-white p-2 rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200 flex flex-col lg:flex-row gap-2 relative z-20" ref={dropdownRef}>
                 <div className="flex-grow relative group">
                     <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-dark transition-colors">
                         <Search className="w-5 h-5" />
                     </div>
                     <input 
                         type="text" 
-                        placeholder="Search for an article by author or keyword" 
+                        placeholder="Search for an article by author, topic, or keyword..." 
                         className="w-full h-14 pl-14 pr-4 bg-transparent border-none outline-none text-lg text-slate-800 placeholder-slate-400 focus:ring-0"
                     />
                 </div>
@@ -136,7 +153,7 @@ export const PublicationsArticles: React.FC = () => {
                         </div>
                     ))}
                     
-                    <Button className="h-14 px-8 rounded-xl bg-[#5e608a] hover:bg-[#4c4e72] text-white shadow-lg whitespace-nowrap">
+                    <Button className="h-14 px-8 rounded-xl bg-primary-dark hover:bg-primary-dark/90 text-white shadow-lg shadow-primary-dark/20 whitespace-nowrap">
                         Search
                     </Button>
                 </div>
@@ -144,53 +161,72 @@ export const PublicationsArticles: React.FC = () => {
          </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             {/* Main Content */}
             <div className="lg:col-span-8">
-                <h2 className="text-3xl font-bold text-slate-900 mb-8">All Articles ({articles.length * 12})</h2>
+                <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-2xl font-bold text-slate-900">All Articles <span className="text-slate-400 font-medium ml-1">({articles.length * 12})</span></h2>
+                    <div className="flex items-center gap-2 text-sm font-bold text-slate-500">
+                        Sort by: <span className="text-slate-900 cursor-pointer border-b border-slate-300 border-dashed">Newest First</span>
+                    </div>
+                </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-8">
                     {[...articles, ...articles].map((article, idx) => (
-                        <div key={`${article.id}-${idx}`} className="group bg-white rounded-3xl p-6 border border-slate-100 shadow-soft hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row gap-6 items-start cursor-pointer hover:border-slate-200">
+                        <div key={`${article.id}-${idx}`} className="group bg-white rounded-[2rem] p-2 border border-slate-100 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex flex-col md:flex-row gap-6 cursor-pointer hover:border-primary-light/30">
+                            
                             {/* Image */}
-                            <div className="w-full sm:w-48 h-48 sm:h-40 rounded-2xl bg-slate-100 overflow-hidden flex-shrink-0 relative">
-                                <img src={article.image} alt={article.title} className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
-                                <button className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-slate-400 hover:text-rose-500 transition-colors">
-                                    <Heart size={16} />
-                                </button>
+                            <div className="w-full md:w-72 h-64 md:h-auto rounded-[1.5rem] overflow-hidden relative flex-shrink-0 bg-slate-100">
+                                <img src={article.image} alt={article.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                
+                                <div className="absolute top-3 left-3">
+                                    <Badge className="bg-white/95 text-slate-900 backdrop-blur-md shadow-sm font-bold border-0">{article.category}</Badge>
+                                </div>
                             </div>
 
                             {/* Content */}
-                            <div className="flex-grow">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <Avatar size="sm" className="bg-slate-100 text-slate-500 w-6 h-6 text-[10px]" initials="AN" />
-                                    <span className="text-xs font-bold text-slate-500">{article.author}</span>
+                            <div className="flex flex-col justify-center py-4 pr-6 pl-4 md:pl-0">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <Avatar size="sm" className="bg-slate-100 text-slate-600" initials="AR" />
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-900">{article.author}</p>
+                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{article.role}</p>
+                                    </div>
+                                    <div className="w-1 h-1 bg-slate-300 rounded-full ml-auto md:ml-2"></div>
+                                    <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
+                                        <Clock size={12} /> {article.readTime}
+                                    </span>
                                 </div>
                                 
-                                <h3 className="text-xl font-bold text-slate-900 mb-3 leading-snug group-hover:text-[#5e608a] transition-colors">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-3 leading-snug group-hover:text-primary-dark transition-colors line-clamp-2">
                                     {article.title}
                                 </h3>
                                 
-                                <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">
+                                <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">
                                     {article.desc}
                                 </p>
                                 
-                                <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-400">{article.date}</span>
-                                    <span className="text-xs font-bold text-[#5e608a] group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                                        Read Article <ArrowRight size={12} />
+                                <div className="flex items-center justify-between mt-auto border-t border-slate-50 pt-4">
+                                    <span className="text-xs font-bold text-slate-400 flex items-center gap-2">
+                                        <Calendar size={12} /> {article.date}
                                     </span>
+                                    
+                                    <div className="flex gap-3">
+                                        <button className="text-slate-400 hover:text-primary-dark transition-colors"><Bookmark size={18} /></button>
+                                        <button className="text-slate-400 hover:text-primary-dark transition-colors"><Share2 size={18} /></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="mt-12">
-                    <Button fullWidth variant="outline" className="h-14 rounded-xl border-slate-200 text-slate-500 font-bold hover:bg-slate-50 hover:text-slate-800">
-                        Load more <ChevronDown className="ml-2 w-5 h-5" />
+                <div className="mt-16">
+                    <Button fullWidth variant="outline" className="h-14 rounded-xl border-slate-200 text-slate-500 font-bold hover:bg-slate-50 hover:text-slate-800 hover:border-slate-300">
+                        Load more articles <ChevronDown className="ml-2 w-5 h-5" />
                     </Button>
                 </div>
             </div>
@@ -198,47 +234,74 @@ export const PublicationsArticles: React.FC = () => {
             {/* Sidebar */}
             <div className="lg:col-span-4 space-y-10">
                 
-                {/* Latest Picks */}
-                <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-6">Latest Picks</h3>
+                {/* Latest Picks Widget */}
+                <div className="bg-white rounded-[2rem] border border-slate-100 p-8 shadow-sm">
+                    <div className="flex items-center gap-2 mb-6">
+                        <Sparkles className="w-5 h-5 text-amber-500" />
+                        <h3 className="text-lg font-bold text-slate-900">Trending Now</h3>
+                    </div>
+                    
                     <div className="space-y-6">
                         {latestPicks.map((pick, i) => (
                             <div key={i} className="flex gap-4 group cursor-pointer">
-                                <div className="w-16 h-16 rounded-xl bg-slate-100 flex-shrink-0 overflow-hidden">
-                                    <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400">
-                                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                                    </div>
-                                </div>
+                                <span className="text-2xl font-extrabold text-slate-200 group-hover:text-primary-light transition-colors">0{i+1}</span>
                                 <div>
-                                    <h4 className="text-sm font-bold text-slate-800 leading-snug mb-1 group-hover:text-[#5e608a] transition-colors">
+                                    <h4 className="text-sm font-bold text-slate-800 leading-snug mb-1 group-hover:text-primary-dark transition-colors line-clamp-2">
                                         {pick.title}
                                     </h4>
-                                    <span className="text-xs font-medium text-slate-400">{pick.date}</span>
+                                    <div className="flex items-center gap-3 text-xs text-slate-400 font-medium">
+                                        <span>{pick.date}</span>
+                                        <span>•</span>
+                                        <span>{pick.views} reads</span>
+                                    </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* Newsletter Box */}
-                <div className="bg-[#5e608a] rounded-3xl p-8 text-white relative overflow-hidden shadow-lg">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                {/* Premium Newsletter Box */}
+                <div className="bg-slate-900 rounded-[2rem] p-8 relative overflow-hidden shadow-2xl group">
+                    {/* Animated Background */}
+                    <div className="absolute inset-0 bg-pattern-grid opacity-10"></div>
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-teal-500/20 rounded-full blur-3xl group-hover:bg-teal-500/30 transition-all duration-1000"></div>
+                    <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-600/20 rounded-full blur-3xl group-hover:bg-blue-600/30 transition-all duration-1000"></div>
+                    
                     <div className="relative z-10">
-                        <h3 className="text-xl font-bold mb-2">Join our Newsletter to receive the latest articles</h3>
-                        <p className="text-indigo-100 text-sm mb-6 opacity-90">Enter your email to stay updated.</p>
+                        <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mb-6 border border-white/10 text-teal-300">
+                            <Mail size={24} />
+                        </div>
+                        
+                        <h3 className="text-xl font-bold text-white mb-2">Weekly Insights</h3>
+                        <p className="text-slate-400 text-sm mb-8 leading-relaxed">
+                            Get the latest research, case studies, and event updates delivered to your inbox.
+                        </p>
                         
                         <div className="space-y-3">
                             <div className="relative">
                                 <input 
                                     type="email" 
-                                    placeholder="example@email.com" 
-                                    className="w-full h-12 pl-4 pr-4 rounded-xl bg-white text-slate-900 placeholder-slate-400 outline-none border-none text-sm"
+                                    placeholder="your@email.com" 
+                                    className="w-full h-12 pl-4 pr-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 outline-none focus:bg-white/10 focus:border-teal-500/50 transition-all text-sm"
                                 />
                             </div>
-                            <Button fullWidth className="bg-white text-[#5e608a] hover:bg-indigo-50 font-bold h-12 rounded-xl">
+                            <Button fullWidth className="bg-teal-500 text-slate-900 hover:bg-teal-400 font-bold h-12 rounded-xl shadow-lg shadow-teal-500/20 border-0">
                                 Join Newsletter
                             </Button>
                         </div>
+                        <p className="text-xs text-slate-500 mt-4 text-center">No spam, unsubscribe anytime.</p>
+                    </div>
+                </div>
+
+                {/* Quick Links */}
+                <div className="bg-slate-50 rounded-[2rem] p-8 border border-slate-100">
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-6">Topics</h3>
+                    <div className="flex flex-wrap gap-2">
+                        {['Clinical', 'History', 'Spirituality', 'Ethics', 'Trauma', 'Family', 'Youth'].map(tag => (
+                            <span key={tag} className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:border-primary-dark hover:text-primary-dark cursor-pointer transition-all">
+                                {tag}
+                            </span>
+                        ))}
                     </div>
                 </div>
 
@@ -246,23 +309,33 @@ export const PublicationsArticles: React.FC = () => {
         </div>
       </div>
 
-      {/* Support CTA */}
-      <section className="bg-slate-50 py-20 border-t border-slate-200 mt-12">
+      {/* Support CTA - Premium Card */}
+      <section className="bg-slate-50 py-24 border-t border-slate-200 mt-12">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-[#f3f4f6] rounded-[3rem] p-12 lg:p-16 flex flex-col lg:flex-row items-center gap-16">
-               <div className="w-full lg:w-1/3 flex justify-center">
-                  <div className="w-48 h-48 bg-slate-200 rounded-3xl flex items-center justify-center text-slate-400 shadow-inner">
-                      <svg className="w-20 h-20" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                  </div>
-               </div>
+            <div className="relative bg-slate-900 rounded-[3rem] p-12 lg:p-20 overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-16">
                
-               <div className="lg:w-2/3 text-center lg:text-left">
-                  <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Support the Future of Islamic Psychology</h2>
-                  <p className="text-lg text-slate-500 mb-8 leading-relaxed max-w-xl">
+               {/* Background FX */}
+               <div className="absolute inset-0 bg-pattern-grid opacity-5 pointer-events-none"></div>
+               <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-96 h-96 bg-primary-dark/20 rounded-full blur-[100px]"></div>
+
+               <div className="relative z-10 max-w-2xl text-center lg:text-left">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-teal-300 text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
+                        <Heart size={12} fill="currentColor" /> Community Supported
+                  </div>
+                  <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+                     Support the Future of <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-cyan-400">Islamic Psychology</span>
+                  </h2>
+                  <p className="text-lg text-slate-400 mb-0 leading-relaxed">
                      Your contribution strengthens standards, protects ethics, and helps build a trusted, global home for Islamic Psychology.
                   </p>
-                  <Button className="bg-[#5e608a] hover:bg-[#4c4e72] text-white px-10 py-4 h-auto text-lg rounded-xl shadow-lg">
-                     Donate
+               </div>
+               
+               <div className="relative z-10 flex flex-col sm:flex-row gap-4">
+                  <Button className="bg-white text-slate-900 hover:bg-teal-50 px-10 py-5 h-auto text-lg font-bold rounded-2xl shadow-[0_0_30px_-10px_rgba(255,255,255,0.3)] flex items-center justify-center gap-2">
+                     Make a Donation
+                  </Button>
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-10 py-5 h-auto text-lg rounded-2xl backdrop-blur-sm">
+                     Learn More
                   </Button>
                </div>
             </div>
